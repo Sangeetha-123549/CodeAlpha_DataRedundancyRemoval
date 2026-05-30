@@ -1,37 +1,23 @@
 from flask import Flask, render_template, request
 import os
 
-app = Flask(__name__, template_folder="templates", static_folder="static")
+app = Flask(__name__)
 
 @app.route("/")
 def home():
-    print("Current working dir:", os.getcwd())
     return render_template("index.html")
 
 @app.route("/submit", methods=["POST"])
 def submit():
-    try:
-        name = request.form.get("name")
+    name = request.form.get("name")
 
-        if not name:
-            return render_template("duplicate.html")
+    if not name:
+        return render_template("duplicate.html")
 
-        if name.lower() == "test":
-            return render_template("duplicate.html")
+    if name.lower() == "test":
+        return render_template("duplicate.html")
 
-        return render_template("success.html")
-
-    except Exception as e:
-        print("Error:", e)
-        return "Internal Server Error"
-
-@app.route("/success")
-def success():
     return render_template("success.html")
-
-@app.route("/duplicate")
-def duplicate():
-    return render_template("duplicate.html")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
