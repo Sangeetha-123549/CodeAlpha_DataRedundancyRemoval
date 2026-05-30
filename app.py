@@ -17,7 +17,7 @@ def submit():
             return render_template("duplicate.html")
 
         return render_template("success.html")
-
+        
     except Exception as e:
         print("Error:", e)
         return "Internal Server Error", 500
@@ -25,6 +25,10 @@ def submit():
 @app.route("/success")
 def success():
     return render_template("success.html")
+
+@app.route("/duplicate")
+def duplicate():
+    return render_template("duplicate.html")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
